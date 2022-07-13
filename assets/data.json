@@ -1,0 +1,32 @@
+[
+    {
+        "id": 0,
+        "nombre": "Catálogos",
+        "menuPadre": "",
+        "descripcion": "Configuración de catálogos"
+    },
+    {
+        "id": 1,
+        "nombre": "test",
+        "menuPadre": "Catálogos",
+        "descripcion": "test descriptio"
+    },
+    {
+        "id": 2,
+        "nombre": "Marcas",
+        "menuPadre": "",
+        "descripcion": "des Marcas"
+    },
+    {
+        "id": 3,
+        "nombre": "test",
+        "menuPadre": "",
+        "descripcion": "test desc"
+    },
+    {
+        "nombre": "prueba1",
+        "menuPadre": "",
+        "descripcion": "veamos si da de alta nuevo",
+        "id": 4
+    }
+]
