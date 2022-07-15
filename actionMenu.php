@@ -52,7 +52,7 @@ switch ($opc) {
   case 'create':
     $newData = [
       "nombre" => $_POST["txt_name"],
-      "menuPadre" => "",
+      "menuPadre" => $_POST["opt_Path"],
       "descripcion" => $_POST["txt_description"],
     ];
     $resp = $items->insertNewItem($newData);
@@ -61,6 +61,7 @@ switch ($opc) {
   case 'update':
     $resp = $items->updateItem($_POST["id"], "nombre", $_POST["txt_name"]);
     $items->updateItem($_POST["id"], "descripcion", $_POST["txt_description"]);
+    $items->updateItem($_POST["id"], "menuPadre", $_POST["opt_Path"]);
     echo $resp;
     break;
   case 'delete':
@@ -68,7 +69,10 @@ switch ($opc) {
     $resp = array("flag" => true, "msg" => "Apartado eliminado del menú.");
     echo json_encode($resp);
     break;
-  
+  case 'getDataSelectPath':
+    $resp = $items->getDataSelectPath($_POST["id_Path"], $_POST["id_Item"]);
+    echo json_encode($resp);
+    break;
   default:
     # code...
     break;

@@ -1,26 +1,44 @@
 [
     {
-        "id": 0,
+        "id": 1,
         "nombre": "Catálogos",
         "menuPadre": "",
         "descripcion": "Configuración de catálogos"
     },
     {
-        "id": 1,
+        "id": 2,
         "nombre": "test",
         "menuPadre": "Catálogos",
         "descripcion": "test descriptio"
     },
     {
-        "id": 2,
+        "id": 3,
         "nombre": "Marcas",
         "menuPadre": "",
         "descripcion": "des Marcas bmw"
     },
     {
-        "id": 3,
+        "id": 4,
         "nombre": "test1",
-        "menuPadre": "",
+        "menuPadre": "Marcas",
         "descripcion": "test desc3"
+    },
+    {
+        "nombre": "testin",
+        "menuPadre": "",
+        "descripcion": "pruebas testin",
+        "id": 5
+    },
+    {
+        "nombre": "testin1",
+        "menuPadre": "testin",
+        "descripcion": "agregando a testin",
+        "id": 6
+    },
+    {
+        "nombre": "cat1",
+        "menuPadre": "Catálogos",
+        "descripcion": "agregando a catalogo",
+        "id": 7
     }
 ]

@@ -60,7 +60,7 @@ class data {
     $data = $this->itemsMenu;
     $itemMain = '';
     foreach ($data as $key => $value) {
-      $itemMain .= '<li class="nav-item" id="item'.$value["id"].'" onclick="itemActive(\'item'.$value["id"].'\')">';
+      $itemMain .= '<li class="nav-item dropdown" id="item'.$value["id"].'" onclick="itemActive(\'item'.$value["id"].'\')">';
       if (trim($value["pathMenu"]) == '' ) :
         $search = $this->searchJsonPath($value["name"]);
         $opc1 = '<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="javascript:setupGear(\''.$value["description"].'\');"">'.$value["name"].'</a>';
@@ -83,7 +83,7 @@ class data {
       $tableData .= '<td>'.$value["name"].'</td>';
       $tableData .= '<td>'.$value["pathMenu"].'</td>';
       $tableData .= '<td>'.$value["description"].'</td>';
-      $btnEdit = '<button type="button" class="btn btn-primary btn-sm btnEditItem" value="'.$value["id"].'" name="'.$value["name"].'"><i class="fa fa-edit"></i> Editar</button>';
+      $btnEdit = '<button type="button" class="btn btn-primary btn-sm btnEditItem" value="'.$value["id"].'" name="'.$value["name"].'" sub="'.$value["pathMenu"].'"><i class="fa fa-edit"></i> Editar</button>';
       $btnDelete = '<button type="button" class="btn btn-primary btn-sm btnDeleteItem" value="'.$value["id"].'" name="'.$value["name"].'"><i class="fa fa-trash-o"></i> Borrar</button>';
       $tableData .= '<td>'.$btnEdit.' '.$btnDelete.'</td>';
       $tableData .= '</tr>';
@@ -126,6 +126,18 @@ class data {
       endif;
     }
     $this->storeData();
+  }
+  public function getDataSelectPath($idPath,$idItem){
+    $salida = '<option value="">Ninguno</option>';
+    foreach ($this->itemsMenu as $key => $value) {
+      $optionSelected = ($value["name"] == $idPath) ? "selected" : "";
+      if ($idItem == $value["id"] || trim($value["pathMenu"]) != '') :
+        continue;
+      endif;
+      $salida .= '<option value="'.$value["name"].'" '.$optionSelected.'>'.$value["name"].'</option>';
+    }
+    $resp = array("flag" => true, "html" => $salida);
+    return $resp;
   }
 }
 ?>

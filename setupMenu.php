@@ -15,9 +15,11 @@ $tableData = $items->paintTableMenuSetup();
         titleModal("titleModalSetupMenu", "Editar item.");
         var idItem = $(this).val();
         var name = $(this).attr("name");
+        var idPath = $(this).attr("sub");
+        console.log("test: "+idPath);
         $("#id").val(idItem);
         /* Pintaremos el select obteniendo los items padre */
-        
+        ajaxSelectPath(idPath, idItem);
         var xhttp = new XMLHttpRequest();
         xhttp.open('GET', './assets/data.json', true);
         xhttp.send();

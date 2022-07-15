@@ -42,6 +42,19 @@ function ajaxSelectPathBD(idPath, idItem) {
     complete : function() {}
   });
 }
+function ajaxSelectPath(idPath, idItem) {
+  $.ajax({
+    url : "actionMenu.php",
+    type : 'POST', 
+    data: {action:"getDataSelectPath", id_Path:idPath, id_Item:idItem},
+    dataType : 'JSON',
+    beforeSend : function() {},
+    success : function(res) {
+      $("#opt_Path").html(res.html);
+    },
+    complete : function() {}
+  });
+}
 function ajaxForm(formElement, contentElement, link) {
   var formData = $("#"+formElement).serialize();
   $.ajax({
@@ -83,9 +96,8 @@ $(document).ready(function() {
     if ($("#modelBD").val() == 'relacional') {
       ajaxSelectPathBD('',0);
     } else {
-
+      ajaxSelectPath('','');
     }
-
     $('#configMenu').modal('show');
   });
 });
