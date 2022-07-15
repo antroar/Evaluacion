@@ -15,18 +15,12 @@
         "id": 2,
         "nombre": "Marcas",
         "menuPadre": "",
-        "descripcion": "des Marcas"
+        "descripcion": "des Marcas bmw"
     },
     {
         "id": 3,
-        "nombre": "test",
+        "nombre": "test1",
         "menuPadre": "",
-        "descripcion": "test desc"
-    },
-    {
-        "nombre": "prueba1",
-        "menuPadre": "",
-        "descripcion": "veamos si da de alta nuevo",
-        "id": 4
+        "descripcion": "test desc3"
     }
 ]

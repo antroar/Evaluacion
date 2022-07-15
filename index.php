@@ -18,7 +18,7 @@
         <?php require_once ("./menu.php"); ?>
       </div>
       <!-- Importamos la configuración de la base de datos -->
-      <?php require_once ("./setupBD.php"); ?>
+      <?php require ("./setupBD.php"); ?>
     </form>
 
     <!-- Div Contenido -->

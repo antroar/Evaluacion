@@ -29,6 +29,19 @@ function itemActive(elemento) {
 function titleModal(elemento, title) {
   $("#"+elemento).html(title);
 }
+function ajaxSelectPathBD(idPath, idItem) {
+  $.ajax({
+    url : "actionMenu.php",
+    type : 'POST', 
+    data: {action:"getDataSelectPath",bd:"relacional", id_Path:idPath, id_Item:idItem},
+    dataType : 'JSON',
+    beforeSend : function() {},
+    success : function(res) {
+      $("#opt_Path").html(res.html);
+    },
+    complete : function() {}
+  });
+}
 function ajaxForm(formElement, contentElement, link) {
   var formData = $("#"+formElement).serialize();
   $.ajax({
@@ -44,21 +57,35 @@ function ajaxForm(formElement, contentElement, link) {
       } else {
         openWind("./menu.php?modelBD=noRelacional","menu");
       }
-      $('#configMenu').modal('hide');
     },
     complete : function() {
-      setTimeout(() => {
-        openWind("setupMenu.php", "contenido");
-      }, 3000);
+      $('#configMenu').modal('hide');
+      if ($("#modelBD").val() == 'relacional') {
+        setTimeout(() => {
+          openWind("setupMenuBD.php", "contenido");
+        }, 500);
+      } else {
+        setTimeout(() => {
+          openWind("setupMenu.php", "contenido");
+        }, 500);
+      }
     }
   });
 }
 $(document).ready(function() {
   $(document).on('click', '#btnNewItem',  function(){
     titleModal("titleModalSetupMenu", "Registrar nuevo item al menú.");
+    var modelo = $("#modelBD").val();
     $("#action").val("create");
+    $("#bd").val(modelo);
     $("#txt_name").val("");
     $("#txt_description").val("");
+    if ($("#modelBD").val() == 'relacional') {
+      ajaxSelectPathBD('',0);
+    } else {
+
+    }
+
     $('#configMenu').modal('show');
   });
 });

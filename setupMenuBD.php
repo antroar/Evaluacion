@@ -1,7 +1,8 @@
 <?php
-require ("./assets/class/class.dataJson.php");
-$items = new data('./assets/data.json');
-$tableData = $items->paintTableMenuSetup();
+require ("./assets/class/class.db.php");
+$con = new db();
+$con->dbConect();
+$tableData = $con->paintTableMenuSetup();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -11,29 +12,36 @@ $tableData = $items->paintTableMenuSetup();
   <title>Setup Menú</title>  
   <script>
     $(document).ready(function() {  
+      var id_pathItem;
       $(".btnEditItem").click(function() {
         titleModal("titleModalSetupMenu", "Editar item.");
         var idItem = $(this).val();
+        var idPath = $(this).attr("sub");
         var name = $(this).attr("name");
         $("#id").val(idItem);
-        /* Pintaremos el select obteniendo los items padre */
-        
-        var xhttp = new XMLHttpRequest();
-        xhttp.open('GET', './assets/data.json', true);
-        xhttp.send();
-        xhttp.onreadystatechange = function() {
-          if (this.readyState == 4 && this.status == 200) {
-            var datos = JSON.parse(this.responseText);
-            var nameItem = datos[idItem]['nombre'];
-            var descriptionItem = datos[idItem]['descripcion'];
-            var menuPadre = datos[idItem]['menuPadre'];
-            $("#txt_name").val(nameItem);
-            $("#txt_description").val(descriptionItem);
-            $("#opt_Path").val(menuPadre);
-            $("#action").val("update");
+        $("#action").val("update");
+        $("#bd").val("relacional");
+        /* Pintaremos el select obteniendo los items padre */  
+        ajaxSelectPathBD(idPath,idItem);
+        $.ajax({
+          url : "actionMenu.php",
+          type : 'POST', 
+          dataType : 'JSON',
+          data: {action:"getData",id:idItem,bd:"relacional"},
+          beforeSend : function() {},
+          success : function(res) {
+            if(res.flag){
+              $("#txt_name").val(res.nameItem);
+              $("#txt_description").val(res.descriptionItem);
+              id_pathItem = res.id_pathItem;
+            }else{
+              Swal.fire(res.msg, '', 'error')
+            }
+          },
+          complete : function() {
             $('#configMenu').modal('show');
           }
-        }
+        });
       });
 
       $(".btnDeleteItem").click(function() {
@@ -52,7 +60,7 @@ $tableData = $items->paintTableMenuSetup();
               url : "actionMenu.php",
               type : 'POST', 
               dataType : 'JSON',
-              data: {action:"delete",id:idItem},
+              data: {action:"delete",id:idItem,bd:"relacional"},
               beforeSend : function() {
               },
               success : function(res) {
@@ -63,8 +71,8 @@ $tableData = $items->paintTableMenuSetup();
                 }
               },
               complete : function() {
-                openWind("./menu.php?modelBD=noRelacional","menu");
-                openWind('setupMenu.php', 'contenido');
+                openWind("./menu.php?modelBD=relacional","menu");
+                openWind('setupMenuBD.php', 'contenido');
               }
             });            
           } else if (result.isDenied) {
